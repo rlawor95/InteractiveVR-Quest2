@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/build/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -85,3 +86,6 @@ MemoryCaptures/
 # Rider
 .idea/
 *.sln.iml
+
+
+.utmp/
