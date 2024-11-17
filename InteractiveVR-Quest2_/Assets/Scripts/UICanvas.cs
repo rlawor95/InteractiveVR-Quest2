@@ -36,10 +36,10 @@ public class UICanvas : MonoBehaviour
   public void ManBtnClickEvent()
   {
     Debug.Log("ManBtnClickEvent");
-    PhotonNetwork.JoinRandomRoom();
+    NetworkManager.Instance.SetupUserInfo(UserAvatarType.MAN);
   }
-  
-  
+
+
   public void WomanBtnHoverEvent(BaseEventData data)
   {
     WomanHoverImg.color = Color.white;
@@ -51,7 +51,7 @@ public class UICanvas : MonoBehaviour
   
   public void WomanBtnClickEvent()
   {
-    Debug.Log("WomanBtnClickEvent");
+    NetworkManager.Instance.SetupUserInfo(UserAvatarType.WOMAN);
   }
   
 }

@@ -1543,7 +1543,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408832499}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -5453,6 +5453,7 @@ GameObject:
   - component: {fileID: 1508070968}
   - component: {fileID: 1508070970}
   - component: {fileID: 1508070971}
+  - component: {fileID: 1508070972}
   m_Layer: 0
   m_Name: MGR
   m_TagString: Untagged
@@ -5529,6 +5530,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7439cd4bdc6f54fb81971e6d70b1a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1508070972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508070967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cc7a3627149ad409380db0056bdf61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkManager: {fileID: 1508070971}
+  goUser: {fileID: 6109540380065383359, guid: 537ab16b29f27d844b2508db6c2808f2, type: 3}
 --- !u!1 &1555822856
 GameObject:
   m_ObjectHideFlags: 0
@@ -6902,7 +6917,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038282528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -7017,7 +7032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2058024964
 Transform:
   m_ObjectHideFlags: 0

@@ -1,17 +1,25 @@
 using System;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public static NetworkManager Instance = null;
+    
     private const string RoomName = "InteractiveVR";
     private const int MaxPlayer = 2;
     
+    public event Action OnRoomJoined;
+    
     private void Awake()
     {
-        SetupUserInfo();
+        if (Instance == null)
+            Instance = this;
+        
+        //SetupUserInfo();
         //CreatePhotonRoom();
     }
 
@@ -42,20 +50,26 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined Room as " + (PhotonNetwork.IsMasterClient ? "Host" : "Client"));
         // 여기서 게임 시작 또는 플레이어 초기화 로직 추가
+        
+        OnRoomJoined?.Invoke();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("Player Joined: " + newPlayer.NickName);
         // 추가 플레이어에 대한 처리
+        //OnRoomJoined?.Invoke();
     }
     
-    void SetupUserInfo()
+    public void SetupUserInfo(UserAvatarType type)
     {
-        string playerName = "Jack";
+        string playerName = type.ToString();
 
         if (!playerName.Equals(""))
         {
+            Debug.Log("SetupUserInfo   " + playerName);
+            PhotonNetwork.SendRate = 20; // 초당 20번 데이터 전송
+            PhotonNetwork.SerializationRate = 10; // 초당 10번 직렬화 호출
             PhotonNetwork.LocalPlayer.NickName = playerName;
             PhotonNetwork.ConnectUsingSettings();
         }
@@ -65,12 +79,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    void CreatePhotonRoom()
+    /*void CreatePhotonRoom()
     {
         string roomName = RoomName;
         roomName = (roomName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : roomName;
 
         RoomOptions options = new RoomOptions {MaxPlayers = MaxPlayer, PlayerTtl = 10000 };
         PhotonNetwork.CreateRoom(roomName, options, null);
-    }
+    }*/
 }
