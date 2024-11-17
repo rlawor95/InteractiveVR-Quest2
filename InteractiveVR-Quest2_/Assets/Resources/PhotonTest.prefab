@@ -124,6 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 999
   someVariable: {x: 99, y: 999, z: 99}
+  spine: {fileID: 0}
+  leftArm: {fileID: 0}
+  rightArm: {fileID: 0}
 --- !u!114 &-4769005556217577487
 MonoBehaviour:
   m_ObjectHideFlags: 0

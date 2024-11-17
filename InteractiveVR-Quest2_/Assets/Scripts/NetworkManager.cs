@@ -12,14 +12,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private const string RoomName = "InteractiveVR";
     private const int MaxPlayer = 2;
     
-    public event Action OnRoomJoined;
+    public event Action<UserAvatarType> OnRoomJoined;
+    public event Action<UserAvatarType> OnPlayerEnterRoom;
+
+    private UserAvatarType selectedType;
     
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         
-        //SetupUserInfo();
+        //SetupUserInfo(UserAvatarType.MAN);
         //CreatePhotonRoom();
     }
 
@@ -48,23 +51,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        // 여기는 나만 타는 함수 
         Debug.Log("Joined Room as " + (PhotonNetwork.IsMasterClient ? "Host" : "Client"));
         // 여기서 게임 시작 또는 플레이어 초기화 로직 추가
         
-        OnRoomJoined?.Invoke();
+        OnRoomJoined?.Invoke(selectedType);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        // 여기는 다른 플레이어 접속시 타는 함수 
         Debug.Log("Player Joined: " + newPlayer.NickName);
         // 추가 플레이어에 대한 처리
         //OnRoomJoined?.Invoke();
+        if (selectedType == UserAvatarType.MAN)
+            OnPlayerEnterRoom?.Invoke(UserAvatarType.WOMAN);
+        else
+            OnPlayerEnterRoom?.Invoke(UserAvatarType.MAN);
+
     }
-    
+
     public void SetupUserInfo(UserAvatarType type)
     {
         string playerName = type.ToString();
-
+        selectedType = type;
+        
         if (!playerName.Equals(""))
         {
             Debug.Log("SetupUserInfo   " + playerName);

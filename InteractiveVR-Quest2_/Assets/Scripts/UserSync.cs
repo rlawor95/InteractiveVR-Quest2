@@ -13,7 +13,21 @@ public class UserSync : MonoBehaviourPun, IPunObservable
 
      float health2;
      Vector3 someVariable2;
-    
+     
+     // 스켈레탈 데이터 참조
+     public Transform spine;
+     public Transform leftArm;
+     public Transform rightArm;
+
+     // 보간(interpolation)을 위한 변수들
+     private Vector3 syncSpinePos;
+     private Quaternion syncSpineRot;
+     private Vector3 syncLeftArmPos;
+     private Quaternion syncLeftArmRot;
+     private Vector3 syncRightArmPos;
+     private Quaternion syncRightArmRot;
+     
+     
     void Start()
     {
      
