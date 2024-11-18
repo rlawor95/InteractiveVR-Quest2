@@ -21,7 +21,18 @@ public class MGR : MonoBehaviour
 
     public List<GameObject> NPC_List;
 
-    public GameObject SelectionXR;
+    [Header("XR")]
+    public GameObject Player;
+    public Transform XRChildTransform;
+
+    public Transform LeftController;
+    public Transform RightController;
+    public Transform HMD;
+
+    public GameObject LeftControllerVisual;
+    public GameObject RightControllerVisual;
+    public GameObject LeftControllerInteractor;
+    public GameObject RightControllerInteractor;
 
     private void Start()
     {
@@ -55,13 +66,36 @@ public class MGR : MonoBehaviour
 
     private void NetworkManagerOnOnRoomJoined(UserAvatarType type)
     {
-        Destroy(SelectionXR);
-        PhotonNetwork.Instantiate(goMan.name, RightTransform.position, RightTransform.rotation);
-            
-        /*if (type == UserAvatarType.MAN)
-            PhotonNetwork.Instantiate(goMan.name, Vector3.zero, Quaternion.identity);
+        //Destroy(SelectionXR);
+        GameObject go = null;
+        if (type == UserAvatarType.MAN)
+        {
+            go =  PhotonNetwork.Instantiate(goMan.name, LeftTransform.position, LeftTransform.rotation);
+            Player.transform.position = LeftTransform.position;
+            Player.transform.rotation = LeftTransform.rotation;
+        }
         else
-            PhotonNetwork.Instantiate(goWoman.name, Vector3.zero, Quaternion.identity);*/
+        {
+            go =  PhotonNetwork.Instantiate(goWoman.name, RightTransform.position, RightTransform.rotation);
+            Player.transform.position = RightTransform.position;
+            Player.transform.rotation = RightTransform.rotation;
+        }
+        
+       
+        
+        go.transform.parent = Player.transform;
+        go.transform.position = XRChildTransform.position;
+        var rig = go.GetComponentInChildren<RiggingManager>();
+        rig.hmd = HMD;
+        rig.leftHandController = LeftController;
+        rig.rightHandController = RightController;
+        
+        LeftControllerInteractor.SetActive(false);
+        RightControllerInteractor.SetActive(false);
+        LeftControllerVisual.SetActive(false);
+        RightControllerVisual.SetActive(false);
+            
+      
 
         if (PhotonNetwork.IsMasterClient)
         {

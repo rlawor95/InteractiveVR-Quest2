@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 4028249717456950781}
   - component: {fileID: 7952193966111356303}
   - component: {fileID: 1820925038128868932}
+  - component: {fileID: 3887551965801859702}
   m_Layer: 0
   m_Name: User_Woman
   m_TagString: Untagged
@@ -320,6 +321,28 @@ MonoBehaviour:
   - m_Rig: {fileID: 8272118078234134817}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &3887551965801859702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962875944392593894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &999429416233738019
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862906007521102705}
   - component: {fileID: 8272118078234134817}
+  - component: {fileID: 338287384666593567}
   m_Layer: 0
   m_Name: Rig
   m_TagString: Untagged
@@ -724,6 +748,33 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!114 &338287384666593567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077359327087709316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6255c6bb89f084f9c39376e1aa6a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandIK: {fileID: 6737651573702052216}
+  rightHandIK: {fileID: 8111372472275330303}
+  headIK: {fileID: 4676065454579856939}
+  leftHandController: {fileID: 0}
+  rightHandController: {fileID: 0}
+  hmd: {fileID: 0}
+  leftOffset:
+  - {x: 0, y: 0, z: 0}
+  - {x: 90, y: 0, z: 0}
+  rightOffset:
+  - {x: 0, y: 0, z: 0}
+  - {x: 90, y: 0, z: 0}
+  headOffset:
+  - {x: 0, y: 0, z: -0.28}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &2218384811642861656
 GameObject:
   m_ObjectHideFlags: 0

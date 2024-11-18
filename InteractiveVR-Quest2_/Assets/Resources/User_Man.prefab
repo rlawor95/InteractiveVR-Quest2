@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2011466786998922801}
   - component: {fileID: 7440581668144658183}
+  - component: {fileID: 808283417438645819}
   m_Layer: 0
   m_Name: Rig
   m_TagString: Untagged
@@ -112,6 +113,33 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!114 &808283417438645819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56991262550034517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6255c6bb89f084f9c39376e1aa6a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandIK: {fileID: 9215619684525036028}
+  rightHandIK: {fileID: 6840730212213519489}
+  headIK: {fileID: 5858679782741379382}
+  leftHandController: {fileID: 0}
+  rightHandController: {fileID: 0}
+  hmd: {fileID: 0}
+  leftOffset:
+  - {x: 0, y: 0, z: 0}
+  - {x: 90, y: 0, z: 0}
+  rightOffset:
+  - {x: 0, y: 0, z: 0}
+  - {x: 90, y: 0, z: 0}
+  headOffset:
+  - {x: 0, y: 0, z: -0.28}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &357982390469287923
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +617,7 @@ GameObject:
   - component: {fileID: 1871167009810429229}
   - component: {fileID: 3751267175984010859}
   - component: {fileID: 4507049016675896466}
+  - component: {fileID: -3256538746699379943}
   m_Layer: 0
   m_Name: User_Man
   m_TagString: Untagged
@@ -738,6 +767,28 @@ MonoBehaviour:
   - {fileID: 561179929335222812}
   - {fileID: 3347240634397779071}
   - {fileID: 4331034780476722511}
+--- !u!114 &-3256538746699379943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850812395145658721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1995686136034270335
 GameObject:
   m_ObjectHideFlags: 0
