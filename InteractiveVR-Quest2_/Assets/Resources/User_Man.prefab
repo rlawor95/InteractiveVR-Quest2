@@ -140,6 +140,13 @@ MonoBehaviour:
   headOffset:
   - {x: 0, y: 0, z: -0.28}
   - {x: 0, y: 0, z: 0}
+  OriginPos: {fileID: 4649520855560927461}
+  SyncPos: {x: 0, y: 0, z: 0}
+  SyncLeftPos: {x: 0, y: 0, z: 0}
+  SyncLeftRot: {x: 0, y: 0, z: 0, w: 0}
+  SyncRightPos: {x: 0, y: 0, z: 0}
+  SyncRightRot: {x: 0, y: 0, z: 0, w: 0}
+  SyncHMD: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &357982390469287923
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +792,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 808283417438645819}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

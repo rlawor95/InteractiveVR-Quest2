@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public enum UserAvatarType
@@ -13,8 +14,8 @@ public class MGR : MonoBehaviour
 {
     public NetworkManager _networkManager;
     
-    public GameObject goMan;
-    public GameObject goWoman;
+    public GameObject xrMan;
+    public GameObject xrWoman;
 
     public Transform LeftTransform;
     public Transform RightTransform;
@@ -59,24 +60,58 @@ public class MGR : MonoBehaviour
         }
     }
 
-    private void NetworkManagerOnPlayerEntered(UserAvatarType type)
+    private void NetworkManagerOnPlayerEntered(Player newPlayer)
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("나는 마스터 ^^ ");
+            TraceBox.Log("나는 마스터 ^^ ");
+        }
+        else
+        {
+            Debug.Log("난 마스터 아님^^ ");
+            TraceBox.Log("난 마스터 아님^^ ");
+        }
+
+        TraceBox.Log("다른 플레이어 입장 " + newPlayer.NickName);
+        Debug.Log("다른 플레이어 입장  " + newPlayer.NickName);
         
+       
+        /*
+        if (type == UserAvatarType.MAN)
+        {
+            go = PhotonNetwork.Instantiate(xrMan.name, LeftTransform.position, LeftTransform.rotation);
+            TraceBox.Log("다른 플레이어 스폰 " + type.ToString());
+            Debug.Log("다른 플레이어 스폰  " + type.ToString());
+
+        }
+        else
+        {
+            go = PhotonNetwork.Instantiate(xrWoman.name, RightTransform.position, RightTransform.rotation);
+            TraceBox.Log("다른 플레이어 스폰 " + type.ToString());
+            Debug.Log("다른 플레이어 스폰  " + type.ToString());
+        }
+        */
+
+        //var rig = go.GetComponentInChildren<RiggingManager>();
+        //rig.isXR = false;
     }
 
     private void NetworkManagerOnOnRoomJoined(UserAvatarType type)
     {
+        TraceBox.Log("RoomJoined " + type.ToString());
+        Debug.Log("RoomJoined " + type.ToString());
         //Destroy(SelectionXR);
         GameObject go = null;
         if (type == UserAvatarType.MAN)
         {
-            go =  PhotonNetwork.Instantiate(goMan.name, LeftTransform.position, LeftTransform.rotation);
+            go =  PhotonNetwork.Instantiate(xrMan.name, LeftTransform.position, LeftTransform.rotation);
             Player.transform.position = LeftTransform.position;
             Player.transform.rotation = LeftTransform.rotation;
         }
         else
         {
-            go =  PhotonNetwork.Instantiate(goWoman.name, RightTransform.position, RightTransform.rotation);
+            go =  PhotonNetwork.Instantiate(xrWoman.name, RightTransform.position, RightTransform.rotation);
             Player.transform.position = RightTransform.position;
             Player.transform.rotation = RightTransform.rotation;
         }
@@ -86,6 +121,7 @@ public class MGR : MonoBehaviour
         go.transform.parent = Player.transform;
         go.transform.position = XRChildTransform.position;
         var rig = go.GetComponentInChildren<RiggingManager>();
+    
         rig.hmd = HMD;
         rig.leftHandController = LeftController;
         rig.rightHandController = RightController;

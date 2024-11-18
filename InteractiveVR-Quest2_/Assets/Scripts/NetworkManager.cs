@@ -13,7 +13,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private const int MaxPlayer = 2;
     
     public event Action<UserAvatarType> OnRoomJoined;
-    public event Action<UserAvatarType> OnPlayerEnterRoom;
+    public event Action<Player> OnPlayerEnterRoom;
 
     private UserAvatarType selectedType;
     
@@ -38,6 +38,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        TraceBox.Log("Connected to Photon Master Server");
         Debug.Log("Connected to Photon Master Server");
         PhotonNetwork.JoinRoom(RoomName);
     }
@@ -54,30 +55,39 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // 여기는 나만 타는 함수 
         Debug.Log("Joined Room as " + (PhotonNetwork.IsMasterClient ? "Host" : "Client"));
         // 여기서 게임 시작 또는 플레이어 초기화 로직 추가
-        
+        TraceBox.Log("Joined Room as " + (PhotonNetwork.IsMasterClient ? "Host" : "Client"));
         OnRoomJoined?.Invoke(selectedType);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         // 여기는 다른 플레이어 접속시 타는 함수 
-        Debug.Log("Player Joined: " + newPlayer.NickName);
+        Debug.Log("네트워크 매니저 OnPlayerEnteredRoom : " + newPlayer.NickName);
+        var type = newPlayer.NickName;
         // 추가 플레이어에 대한 처리
         //OnRoomJoined?.Invoke();
-        if (selectedType == UserAvatarType.MAN)
+        /*if (selectedType == UserAvatarType.MAN)
             OnPlayerEnterRoom?.Invoke(UserAvatarType.WOMAN);
         else
-            OnPlayerEnterRoom?.Invoke(UserAvatarType.MAN);
+            OnPlayerEnterRoom?.Invoke(UserAvatarType.MAN);*/
 
+        TraceBox.Log("네트워크 매니저 OnPlayerEnteredRoom " + type);
+        OnPlayerEnterRoom?.Invoke(newPlayer);
+        /*if (type == "MAN")
+            OnPlayerEnterRoom?.Invoke(newPlayer);
+        else
+            OnPlayerEnterRoom?.Invoke(UserAvatarType.WOMAN);*/
     }
 
     public void SetupUserInfo(UserAvatarType type)
     {
         string playerName = type.ToString();
         selectedType = type;
+       
         
         if (!playerName.Equals(""))
         {
+            TraceBox.Log("SetupUserInfo " + type.ToString());
             Debug.Log("SetupUserInfo   " + playerName);
             PhotonNetwork.SendRate = 20; // 초당 20번 데이터 전송
             PhotonNetwork.SerializationRate = 10; // 초당 10번 직렬화 호출
@@ -86,6 +96,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            TraceBox.Log("Player Name is invalid.");
             Debug.LogError("Player Name is invalid.");
         }
     }
