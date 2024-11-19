@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.VFX;
+using Photon.Pun;
 
-public class WalkingCharacter : MonoBehaviour
+public class WalkingCharacter : MonoBehaviourPun
 {
     public Transform pointA; // A 좌표
     public Transform pointB; // B 좌표
@@ -13,11 +14,12 @@ public class WalkingCharacter : MonoBehaviour
     private float waitTime = 10.0f; // 대기 시간
     
     public VisualEffect vfxGraph;
-    
+
     private void Start()
     {
-        // 초기 이동을 시작
-        StartCoroutine(MoveBetweenPoints());
+
+        if (photonView.IsMine)
+            StartCoroutine(MoveBetweenPoints());
     }
 
     private void Update()
@@ -28,6 +30,14 @@ public class WalkingCharacter : MonoBehaviour
         vfxGraph.SetVector3("WavePosition", this.transform.position);
         
     }
+    
+    [PunRPC]
+    void UpdatePosition(Vector3 newPosition)
+    {
+        // 다른 클라이언트에서 위치 업데이트
+        //transform.position = newPosition;
+    }
+    
 
     private IEnumerator MoveBetweenPoints()
     {

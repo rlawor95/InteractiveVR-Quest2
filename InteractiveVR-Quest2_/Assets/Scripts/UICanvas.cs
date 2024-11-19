@@ -6,13 +6,18 @@ using Photon.Pun;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UICanvas : MonoBehaviour
+
+public class UICanvas : MonoBehaviourPunCallbacks
 {
   
   public TextMeshProUGUI instructionTMP;
 
   public Image WomanHoverImg;
   public Image ManHoverImg;
+  public Button ManButton;
+  public Button WomanButton;
+
+  public event Action<UserAvatarType> SelectAvatarEvent;
   
   public void Start()
   {
@@ -36,7 +41,9 @@ public class UICanvas : MonoBehaviour
   public void ManBtnClickEvent()
   {
     Debug.Log("ManBtnClickEvent");
-    NetworkManager.Instance.SetupUserInfo(UserAvatarType.MAN);
+    //NetworkManager.Instance.SetupUserInfo(UserAvatarType.MAN);
+    SelectAvatarEvent?.Invoke(UserAvatarType.MAN);
+    photonView.RPC("DisableManButton", RpcTarget.Others);
   }
 
 
@@ -51,7 +58,27 @@ public class UICanvas : MonoBehaviour
   
   public void WomanBtnClickEvent()
   {
-    NetworkManager.Instance.SetupUserInfo(UserAvatarType.WOMAN);
+    //NetworkManager.Instance.SetupUserInfo(UserAvatarType.WOMAN);
+    SelectAvatarEvent?.Invoke(UserAvatarType.WOMAN);
+    photonView.RPC("DisableWomanButton", RpcTarget.Others);
   }
   
+  [PunRPC]
+  void DisableManButton()
+  {
+    if (ManButton != null)
+    {
+      ManButton.interactable = false;
+    }
+  }
+
+
+  [PunRPC]
+  void DisableWomanButton()
+  {
+    if (WomanButton != null)
+    {
+      WomanButton.interactable = false;
+    }
+  }
 }

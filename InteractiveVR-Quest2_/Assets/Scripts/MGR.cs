@@ -12,6 +12,7 @@ public enum UserAvatarType
 
 public class MGR : MonoBehaviour
 {
+    public UICanvas _UICanvas;
     public NetworkManager _networkManager;
     
     public GameObject xrMan;
@@ -37,8 +38,10 @@ public class MGR : MonoBehaviour
 
     private void Start()
     {
-        _networkManager.OnRoomJoined += NetworkManagerOnOnRoomJoined;
-        _networkManager.OnPlayerEnterRoom += NetworkManagerOnPlayerEntered;
+        //_networkManager.OnRoomJoined += NetworkManagerOnOnRoomJoined;
+        //_networkManager.OnPlayerEnterRoom += NetworkManagerOnPlayerEntered;
+
+        _UICanvas.SelectAvatarEvent += OnSelectAvatar;
         ActiveNPC(false);
     }
 
@@ -64,17 +67,17 @@ public class MGR : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("나는 마스터 ^^ ");
-            TraceBox.Log("나는 마스터 ^^ ");
+            Debug.Log(" PlayerEntered 나는 마스터 ^^ ");
+           // TraceBox.Log("나는 마스터 ^^ ");
         }
         else
         {
-            Debug.Log("난 마스터 아님^^ ");
-            TraceBox.Log("난 마스터 아님^^ ");
+            Debug.Log("PlayerEntered 난 마스터 아님^^ ");
+          //  TraceBox.Log("난 마스터 아님^^ ");
         }
 
-        TraceBox.Log("다른 플레이어 입장 " + newPlayer.NickName);
-        Debug.Log("다른 플레이어 입장  " + newPlayer.NickName);
+        //TraceBox.Log("다른 플레이어 입장 " + newPlayer.NickName);
+        Debug.Log("PlayerEntered 다른 플레이어 입장  " + newPlayer.NickName);
         
        
         /*
@@ -97,9 +100,9 @@ public class MGR : MonoBehaviour
         //rig.isXR = false;
     }
 
-    private void NetworkManagerOnOnRoomJoined(UserAvatarType type)
+    private void OnSelectAvatar(UserAvatarType type)
     {
-        TraceBox.Log("RoomJoined " + type.ToString());
+      //  TraceBox.Log("RoomJoined " + type.ToString());
         Debug.Log("RoomJoined " + type.ToString());
         //Destroy(SelectionXR);
         GameObject go = null;
@@ -130,8 +133,8 @@ public class MGR : MonoBehaviour
         RightControllerInteractor.SetActive(false);
         LeftControllerVisual.SetActive(false);
         RightControllerVisual.SetActive(false);
-            
-      
+
+        ActiveNPC(true);
 
         if (PhotonNetwork.IsMasterClient)
         {
