@@ -1209,6 +1209,7 @@ GameObject:
   - component: {fileID: 20413903757916965}
   - component: {fileID: 959423066642006383}
   - component: {fileID: 6970738380904871870}
+  - component: {fileID: 3498229932452072664}
   m_Layer: 0
   m_Name: VFX_RightWind
   m_TagString: Untagged
@@ -1321,6 +1322,28 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3498229932452072664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201798109925223619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3262000280621954986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,6 +2983,7 @@ GameObject:
   - component: {fileID: 5144132753838819305}
   - component: {fileID: 1081518380198211341}
   - component: {fileID: 5726068026903342592}
+  - component: {fileID: 3600163195028117672}
   m_Layer: 0
   m_Name: VFX_LeftWind
   m_TagString: Untagged
@@ -3066,6 +3090,28 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3600163195028117672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8190947739439900913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8397019589579958189
 GameObject:
   m_ObjectHideFlags: 0
