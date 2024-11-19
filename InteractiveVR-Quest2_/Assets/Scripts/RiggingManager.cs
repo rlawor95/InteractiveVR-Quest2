@@ -5,9 +5,13 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 using Photon.Pun;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.VFX;
 
 public class RiggingManager : MonoBehaviourPun, IPunObservable
 {
+    public VisualEffect leftVFXGraph;
+    public VisualEffect rightVFXGraph;
+    
     public Transform leftHandIK;
     public Transform rightHandIK;
     public Transform headIK;
@@ -40,6 +44,9 @@ public class RiggingManager : MonoBehaviourPun, IPunObservable
             MappingHandTransform(leftHandIK, leftHandController, true);
             MappingHandTransform(rightHandIK, rightHandController, false);
             MappingHeadTransform(headIK, hmd);
+            
+            leftVFXGraph.SetVector3("SensingPosition", leftHandIK.position);
+            rightVFXGraph.SetVector3("SensingPosition", rightHandIK.position);
         }
         else
         {
@@ -49,6 +56,9 @@ public class RiggingManager : MonoBehaviourPun, IPunObservable
             rightHandIK.position = Vector3.Lerp(rightHandIK.position, SyncRightPos, Time.deltaTime * lerpSpeed);
             rightHandIK.rotation = Quaternion.Lerp(rightHandIK.rotation, SyncRightRot, Time.deltaTime * lerpSpeed);
             headIK.rotation = Quaternion.Lerp(headIK.rotation, SyncHMD, Time.deltaTime * lerpSpeed);
+            
+            leftVFXGraph.SetVector3("SensingPosition", leftHandIK.position);
+            rightVFXGraph.SetVector3("SensingPosition", rightHandIK.position);
         }
     }
 

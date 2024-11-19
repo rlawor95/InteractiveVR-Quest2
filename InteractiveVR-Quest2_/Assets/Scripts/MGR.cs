@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum UserAvatarType
 {
@@ -36,13 +38,15 @@ public class MGR : MonoBehaviour
     public GameObject LeftControllerInteractor;
     public GameObject RightControllerInteractor;
 
+    public Image FadePanel;
+
     private void Start()
     {
         //_networkManager.OnRoomJoined += NetworkManagerOnOnRoomJoined;
         //_networkManager.OnPlayerEnterRoom += NetworkManagerOnPlayerEntered;
 
         _UICanvas.SelectAvatarEvent += OnSelectAvatar;
-        ActiveNPC(false);
+        //ActiveNPC(false);
     }
 
     void ActiveNPC(bool b)
@@ -102,6 +106,9 @@ public class MGR : MonoBehaviour
 
     private void OnSelectAvatar(UserAvatarType type)
     {
+        _UICanvas.gameObject.SetActive(false);
+        FadePanel.DOFade(1, 0.5f);
+        FadePanel.DOFade(0, 1f).SetDelay(2f);
       //  TraceBox.Log("RoomJoined " + type.ToString());
         Debug.Log("RoomJoined " + type.ToString());
         //Destroy(SelectionXR);
@@ -134,7 +141,7 @@ public class MGR : MonoBehaviour
         LeftControllerVisual.SetActive(false);
         RightControllerVisual.SetActive(false);
 
-        ActiveNPC(true);
+        //ActiveNPC(true);
 
         if (PhotonNetwork.IsMasterClient)
         {
