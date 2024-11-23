@@ -1253,6 +1253,12 @@ VisualEffect:
       - m_Value: 50
         m_Name: Spawn Rate
         m_Overridden: 0
+      - m_Value: 0.7
+        m_Name: Scale
+        m_Overridden: 1
+      - m_Value: 0.15
+        m_Name: Divider
+        m_Overridden: 0
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -3023,7 +3029,13 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.7
+        m_Name: Scale
+        m_Overridden: 1
+      - m_Value: 0.2
+        m_Name: Divider
+        m_Overridden: 0
     m_Vector2f:
       m_Array: []
     m_Vector3f:

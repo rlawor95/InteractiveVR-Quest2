@@ -15,6 +15,9 @@ public class WalkingCharacter : MonoBehaviourPun
     
     public VisualEffect vfxGraph;
     public VisualEffect windGraph;
+    public VisualEffect windSphere1Graph;
+    public VisualEffect windSphere2Graph;
+    public VisualEffect windSphere3Graph;
 
     private Vector3 targetPoint;
     
@@ -31,6 +34,9 @@ public class WalkingCharacter : MonoBehaviourPun
         
         vfxGraph.SetVector3("WavePosition", this.transform.position);
         windGraph.SetVector3("SensingPosition", this.transform.position);
+        windSphere1Graph.SetVector3("SensingPosition", this.transform.position);
+        windSphere2Graph.SetVector3("SensingPosition", this.transform.position);
+        windSphere3Graph.SetVector3("SensingPosition", this.transform.position);
     }
     
     [PunRPC]

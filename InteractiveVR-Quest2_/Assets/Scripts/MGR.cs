@@ -20,6 +20,11 @@ public class MGR : MonoBehaviour
     public GameObject xrMan;
     public GameObject xrWoman;
 
+    public GameObject sittingMan;
+    public GameObject sittingWoman;
+    public Transform sittingManTransform;
+    public Transform sittingWomanTransform;
+
     public Transform LeftTransform;
     public Transform RightTransform;
 
@@ -83,25 +88,7 @@ public class MGR : MonoBehaviour
         //TraceBox.Log("다른 플레이어 입장 " + newPlayer.NickName);
         Debug.Log("PlayerEntered 다른 플레이어 입장  " + newPlayer.NickName);
         
-       
-        /*
-        if (type == UserAvatarType.MAN)
-        {
-            go = PhotonNetwork.Instantiate(xrMan.name, LeftTransform.position, LeftTransform.rotation);
-            TraceBox.Log("다른 플레이어 스폰 " + type.ToString());
-            Debug.Log("다른 플레이어 스폰  " + type.ToString());
-
-        }
-        else
-        {
-            go = PhotonNetwork.Instantiate(xrWoman.name, RightTransform.position, RightTransform.rotation);
-            TraceBox.Log("다른 플레이어 스폰 " + type.ToString());
-            Debug.Log("다른 플레이어 스폰  " + type.ToString());
-        }
-        */
-
-        //var rig = go.GetComponentInChildren<RiggingManager>();
-        //rig.isXR = false;
+        
     }
 
     private void OnSelectAvatar(UserAvatarType type)
@@ -146,6 +133,8 @@ public class MGR : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("나는 마스터 ^^ ");
+            PhotonNetwork.Instantiate(sittingMan.name, sittingManTransform.position, sittingManTransform.rotation);
+            PhotonNetwork.Instantiate(sittingWoman.name, sittingWomanTransform.position, sittingWomanTransform.rotation);
         }
         else
         {
