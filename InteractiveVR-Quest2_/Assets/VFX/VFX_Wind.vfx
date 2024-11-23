@@ -160,7 +160,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 250
+      m_SerializableObject: 300
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -497,7 +497,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":11.229999542236329,"y":6.590000152587891,"z":14.300000190734864}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":11.229999542236329,"y":6.590000152587891,"z":14.600000381469727}}'
     m_Space: 0
   m_Property:
     name: bounds
@@ -4037,7 +4037,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.49082696437835696,"y":0.8100000023841858,"z":-0.3799999952316284},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":3.930000066757202,"y":0.5799999833106995,"z":0.6600000262260437}}'
+      m_SerializableObject: '{"center":{"x":0.49082696437835696,"y":0.7981945276260376,"z":-0.6433096528053284},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":5.010000228881836,"y":0.5799999833106995,"z":1.2599999904632569}}'
     m_Space: 0
   m_Property:
     name: Box
@@ -6031,7 +6031,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.2
+      m_SerializableObject: 2
     m_Space: -1
   m_Property:
     name: x
@@ -6496,7 +6496,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 250
+      m_SerializableObject: 300
     m_Space: -1
   m_Property:
     name: o
