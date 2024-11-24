@@ -28,8 +28,7 @@ public class MGR : MonoBehaviour
     public Transform LeftTransform;
     public Transform RightTransform;
 
-    public List<GameObject> NPC_List;
-
+ 
     [Header("XR")]
     public GameObject Player;
     public Transform XRChildTransform;
@@ -47,58 +46,56 @@ public class MGR : MonoBehaviour
 
     private void Start()
     {
-        //_networkManager.OnRoomJoined += NetworkManagerOnOnRoomJoined;
-        //_networkManager.OnPlayerEnterRoom += NetworkManagerOnPlayerEntered;
-
         _UICanvas.SelectAvatarEvent += OnSelectAvatar;
-        //ActiveNPC(false);
+
+        _networkManager.OnLeftOtherPlayer += OnPlayerLeftRoom;
+        _networkManager.OnLeftLocalPlayer += OnLeftRoom;
+        _networkManager.OnRoomJoined += OnJoinRoom;
     }
 
-    void ActiveNPC(bool b)
+    void OnJoinRoom()
     {
-        if (b)
-        {
-            foreach (var item in NPC_List)
-            {
-                item.SetActive(true);
-            }
-        }
-        else
-        {
-            foreach (var item in NPC_List)
-            {
-                item.SetActive(false);
-            }
-        }
+        _UICanvas.EnableButton();
     }
 
-    private void NetworkManagerOnPlayerEntered(Player newPlayer)
+    /*private void NetworkManagerOnPlayerEntered(Player newPlayer)
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log(" PlayerEntered 나는 마스터 ^^ ");
+            //Debug.Log(" PlayerEntered 나는 마스터 ^^ ");
            // TraceBox.Log("나는 마스터 ^^ ");
         }
         else
         {
-            Debug.Log("PlayerEntered 난 마스터 아님^^ ");
+            //Debug.Log("PlayerEntered 난 마스터 아님^^ ");
           //  TraceBox.Log("난 마스터 아님^^ ");
         }
 
         //TraceBox.Log("다른 플레이어 입장 " + newPlayer.NickName);
-        Debug.Log("PlayerEntered 다른 플레이어 입장  " + newPlayer.NickName);
+        //Debug.Log("PlayerEntered 다른 플레이어 입장  " + newPlayer.NickName);
         
         
+    }*/
+    
+    public void OnLeftRoom()
+    {
+       // 로컬 플레이어 아웃 
     }
+    
+    public void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        // 다른 유저 아웃 
+    }
+
 
     private void OnSelectAvatar(UserAvatarType type)
     {
         _UICanvas.gameObject.SetActive(false);
         FadePanel.DOFade(1, 0.5f);
         FadePanel.DOFade(0, 1f).SetDelay(2f);
-      //  TraceBox.Log("RoomJoined " + type.ToString());
+   
         Debug.Log("RoomJoined " + type.ToString());
-        //Destroy(SelectionXR);
+    
         GameObject go = null;
         if (type == UserAvatarType.MAN)
         {
@@ -128,17 +125,18 @@ public class MGR : MonoBehaviour
         LeftControllerVisual.SetActive(false);
         RightControllerVisual.SetActive(false);
 
-        //ActiveNPC(true);
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("나는 마스터 ^^ ");
-            PhotonNetwork.Instantiate(sittingMan.name, sittingManTransform.position, sittingManTransform.rotation);
-            PhotonNetwork.Instantiate(sittingWoman.name, sittingWomanTransform.position, sittingWomanTransform.rotation);
+            //Debug.Log("나는 마스터 ^^ ");
+            var go1 = PhotonNetwork.Instantiate(sittingMan.name, sittingManTransform.position, sittingManTransform.rotation);
+            go1.GetComponent<SittingAvatar>().PlayerHead = HMD.gameObject;
+            var go2 = PhotonNetwork.Instantiate(sittingWoman.name, sittingWomanTransform.position, sittingWomanTransform.rotation);
+            go2.GetComponent<SittingAvatar>().PlayerHead = HMD.gameObject;
         }
         else
         {
-            Debug.Log("난 마스터 아님^^ ");
+            //Debug.Log("난 마스터 아님^^ ");
         }
     }
 }

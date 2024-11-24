@@ -17,7 +17,7 @@ public class UICanvas : MonoBehaviourPunCallbacks
   public Button ManButton;
   public Button WomanButton;
 
-  public event Action<UserAvatarType> SelectAvatarEvent;
+  public event Action<UserAvatarType> SelectAvatarEvent; //MGR
   
   public void Start()
   {
@@ -25,7 +25,12 @@ public class UICanvas : MonoBehaviourPunCallbacks
     WomanHoverImg.color = Color.clear;
 
     instructionTMP.DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo);
+    
+    ManButton.interactable = false;
+    WomanButton.interactable = false;
   }
+  
+  
 
 
   public void ManBtnHoverEvent(BaseEventData data)
@@ -62,7 +67,13 @@ public class UICanvas : MonoBehaviourPunCallbacks
     SelectAvatarEvent?.Invoke(UserAvatarType.WOMAN);
     photonView.RPC("DisableWomanButton", RpcTarget.Others);
   }
-  
+
+  public void EnableButton()
+  {
+    ManButton.interactable = true;
+    WomanButton.interactable = true;
+  }
+
   [PunRPC]
   void DisableManButton()
   {

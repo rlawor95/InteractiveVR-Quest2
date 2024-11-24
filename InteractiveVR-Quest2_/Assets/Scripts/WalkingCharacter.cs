@@ -11,7 +11,7 @@ public class WalkingCharacter : MonoBehaviourPun
     public Animator animator; // Animator 컴포넌트
     
     private bool movingToB = true; // 현재 이동 방향
-    private float waitTime = 10.0f; // 대기 시간
+    public float waitTime = 10.0f; // 대기 시간
     
     public VisualEffect vfxGraph;
     public VisualEffect windGraph;

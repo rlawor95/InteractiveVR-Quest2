@@ -12,10 +12,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private const string RoomName = "InteractiveVR";
     private const int MaxPlayer = 2;
     
-    public event Action<UserAvatarType> OnRoomJoined;
-    public event Action<Player> OnPlayerEnterRoom;
+    public event Action OnRoomJoined; // MGR 
+    //public event Action<Player> OnPlayerEnterRoom; 
 
     //private UserAvatarType selectedType;
+    public event Action OnLeftLocalPlayer;
+    public event Action<Player> OnLeftOtherPlayer;
     
     private void Awake()
     {
@@ -34,6 +36,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Update()
     {
         
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Local player has left the room.");
+        OnLeftLocalPlayer?.Invoke();
+    }
+    
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("Player " + otherPlayer.NickName + " has left the room.");
+        OnLeftOtherPlayer?.Invoke(otherPlayer);
     }
 
     public override void OnConnectedToMaster()
@@ -56,7 +70,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined Room as " + (PhotonNetwork.IsMasterClient ? "Host" : "Client"));
         // 여기서 게임 시작 또는 플레이어 초기화 로직 추가
       //  TraceBox.Log("Joined Room as " + (PhotonNetwork.IsMasterClient ? "Host" : "Client"));
-       // OnRoomJoined?.Invoke(selectedType);
+        OnRoomJoined?.Invoke();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -65,18 +79,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("네트워크 매니저 OnPlayerEnteredRoom : " + newPlayer.NickName);
         var type = newPlayer.NickName;
         // 추가 플레이어에 대한 처리
-        //OnRoomJoined?.Invoke();
-        /*if (selectedType == UserAvatarType.MAN)
-            OnPlayerEnterRoom?.Invoke(UserAvatarType.WOMAN);
-        else
-            OnPlayerEnterRoom?.Invoke(UserAvatarType.MAN);*/
-
-      //  TraceBox.Log("네트워크 매니저 OnPlayerEnteredRoom " + type);
-        OnPlayerEnterRoom?.Invoke(newPlayer);
-        /*if (type == "MAN")
-            OnPlayerEnterRoom?.Invoke(newPlayer);
-        else
-            OnPlayerEnterRoom?.Invoke(UserAvatarType.WOMAN);*/
+   
+       // OnPlayerEnterRoom?.Invoke(newPlayer);
+  
     }
 
     public void SetupUserInfo()

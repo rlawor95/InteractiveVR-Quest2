@@ -153,8 +153,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: -488
     y: -1687
-    width: 5042
-    height: 5182
+    width: 5044
+    height: 5183
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6975,7 +6975,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615186}
   - {fileID: 8926484042661615201}
   dataType: 0
-  capacity: 450
+  capacity: 1000
   stripCapacity: 1
   particlePerStripCount: 32
   needsComputeBounds: 0
@@ -8026,7 +8026,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.49082696437835696,"y":0.5600000023841858,"z":-0.6433096528053284},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":5.010000228881836,"y":0.4699999988079071,"z":0.5199999809265137}}'
+      m_SerializableObject: '{"center":{"x":0.49082696437835696,"y":0.5600000023841858,"z":-0.6433096528053284},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":5.010000228881836,"y":0.4699999988079071,"z":0.7799999713897705}}'
     m_Space: 0
   m_Property:
     name: Box

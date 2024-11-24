@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 542226619331001680}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.113, z: 0.66}
+  m_LocalPosition: {x: 0.02, y: 0.933, z: 0.744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -183,7 +183,7 @@ VisualEffect:
       - m_Value: 0.7
         m_Name: Threshold
         m_Overridden: 1
-      - m_Value: 0.25
+      - m_Value: 0.1
         m_Name: Scale
         m_Overridden: 1
       - m_Value: 60.2
@@ -895,6 +895,7 @@ Transform:
   - {fileID: 8289159058750829384}
   - {fileID: 3507541100308665053}
   - {fileID: 5125649481031219682}
+  - {fileID: 7785741071365785640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 166.393, z: 0}
 --- !u!95 &5894045434616895988
@@ -937,6 +938,8 @@ MonoBehaviour:
   LeftHand: {fileID: 8276054465900883238}
   RightHand: {fileID: 5268989963502761959}
   Head: {fileID: 745213866605088827}
+  PlayerHead: {fileID: 0}
+  PlayerHeadChecker: {fileID: 2033528363791619036}
 --- !u!114 &-3414166751925708936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,6 +993,37 @@ Transform:
   m_Children:
   - {fileID: 5525504966006987982}
   m_Father: {fileID: 6958780324934210300}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2033528363791619036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7785741071365785640}
+  m_Layer: 0
+  m_Name: Player Head Checker
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7785741071365785640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033528363791619036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.127, y: 0.961, z: 0.523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4437158958227975498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2216875528742361645
 GameObject:
@@ -2291,7 +2325,7 @@ VisualEffect:
       - m_Value: 0.3
         m_Name: Divider
         m_Overridden: 1
-      - m_Value: 0.75
+      - m_Value: 0.35
         m_Name: Scale
         m_Overridden: 1
     m_Vector2f:
@@ -2509,7 +2543,7 @@ VisualEffect:
       - m_Value: 0.3
         m_Name: Divider
         m_Overridden: 1
-      - m_Value: 0.75
+      - m_Value: 0.3
         m_Name: Scale
         m_Overridden: 1
     m_Vector2f:
