@@ -37,6 +37,20 @@ public class RiggingManager : MonoBehaviourPun, IPunObservable
 
     private float lerpSpeed = 10f;
     
+    [Space(10)] 
+    public GameObject PlayerHead;
+    public GameObject PlayerHeadChecker;
+    
+    private float threshold = 0.75f;
+
+    private void Start()
+    {
+        if (photonView.IsMine)
+        {
+            
+        }
+    }
+
     private void LateUpdate()
     {
         if (photonView.IsMine)
@@ -59,9 +73,30 @@ public class RiggingManager : MonoBehaviourPun, IPunObservable
             
             leftVFXGraph.SetVector3("SensingPosition", leftHandIK.position);
             rightVFXGraph.SetVector3("SensingPosition", rightHandIK.position);
+            
+            var dir = PlayerHeadChecker.transform.position - PlayerHead.transform.position;
+            var dot = Vector3.Dot(dir.normalized, PlayerHead.transform.forward);
+            Debug.Log(gameObject.name + "  :  " + dot);
+            if (dot > threshold)
+                OffVFX();
+            else
+                OnVFX();
         }
     }
 
+    private void OnVFX()
+    {
+        leftVFXGraph.gameObject.SetActive(true);
+        rightVFXGraph.gameObject.SetActive(true);
+    }
+
+    private void OffVFX()
+    {
+        leftVFXGraph.gameObject.SetActive(false);
+        rightVFXGraph.gameObject.SetActive(false);
+    }
+    
+    
     private void MappingHandTransform(Transform ik, Transform controller, bool isleft)
     {
         var offset = isleft ? leftOffset : rightOffset;

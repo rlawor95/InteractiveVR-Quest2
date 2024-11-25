@@ -13,7 +13,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private const int MaxPlayer = 2;
     
     public event Action OnRoomJoined; // MGR 
-    //public event Action<Player> OnPlayerEnterRoom; 
+    public event Action<Player> OnOtherPlayerEnterRoom; 
 
     //private UserAvatarType selectedType;
     public event Action OnLeftLocalPlayer;
@@ -79,7 +79,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("네트워크 매니저 OnPlayerEnteredRoom : " + newPlayer.NickName);
         var type = newPlayer.NickName;
         // 추가 플레이어에 대한 처리
-   
+        OnOtherPlayerEnterRoom?.Invoke(newPlayer);
        // OnPlayerEnterRoom?.Invoke(newPlayer);
   
     }

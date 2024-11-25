@@ -43,7 +43,7 @@ public class WalkingCharacter : MonoBehaviourPun
     void UpdatePositionRPC(Vector3 newPosition, Vector3 _targetPoint)
     {
         // 다른 클라이언트에서 위치 업데이트
-        Debug.Log("UpdatePositionRPC  " + newPosition + "   ,   " + _targetPoint);
+       // Debug.Log("UpdatePositionRPC  " + newPosition + "   ,   " + _targetPoint);
         transform.position = newPosition;
         this.targetPoint = _targetPoint;
     }
@@ -84,7 +84,7 @@ public class WalkingCharacter : MonoBehaviourPun
 
     void RPCCall()
     {
-        Debug.Log("RPC CAll");
+       // Debug.Log("RPC CAll");
         photonView.RPC("UpdatePositionRPC", RpcTarget.Others, transform.position, targetPoint);
     }
 }
