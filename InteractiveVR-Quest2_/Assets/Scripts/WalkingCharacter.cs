@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Drawing;
 using UnityEngine.VFX;
 using Photon.Pun;
 
@@ -21,10 +22,40 @@ public class WalkingCharacter : MonoBehaviourPun
 
     private Vector3 targetPoint;
     
+    public TCPClient _TcpClient00;
+    public TCPClient _TcpClient01;
+    
+    
     private void Start()
     {
        // if (photonView.IsMine)
             StartCoroutine(MoveBetweenPoints());
+            StartCoroutine(CallTCP());
+    }
+
+    float GetCurPosNormalized()
+    {
+        float result = 0;
+        float totalDistance = Vector3.Distance(pointA.position, pointB.position);
+        float currentDistance = Vector3.Distance(pointA.position, gameObject.transform.position);
+        result = Mathf.Clamp01(currentDistance / totalDistance);
+        
+        //Debug.Log("GetCurPosNormalized : " + result);
+        return result;
+
+    }
+    
+    IEnumerator CallTCP()
+    {
+        while (true)
+        {
+            float value = GetCurPosNormalized();
+            _TcpClient00.SetSendData(value,value);
+            _TcpClient01.SetSendData(value, value);
+
+            yield return new WaitForSeconds(0.5f);
+        }
+        
     }
 
     private void Update()
@@ -38,6 +69,9 @@ public class WalkingCharacter : MonoBehaviourPun
         windSphere2Graph.SetVector3("SensingPosition", this.transform.position);
         windSphere3Graph.SetVector3("SensingPosition", this.transform.position);
     }
+    
+   
+
     
     [PunRPC]
     void UpdatePositionRPC(Vector3 newPosition, Vector3 _targetPoint)

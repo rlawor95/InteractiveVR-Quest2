@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class UICanvas : MonoBehaviourPunCallbacks
 {
-  
+  static public UICanvas instance = null;
   public TextMeshProUGUI instructionTMP;
 
   public Image WomanHoverImg;
@@ -17,10 +17,16 @@ public class UICanvas : MonoBehaviourPunCallbacks
   public Button ManButton;
   public Button WomanButton;
 
+  public Image WomanCharacterImg;
+  public Image ManCharacterImg;
+
   public event Action<UserAvatarType> SelectAvatarEvent; //MGR
   
   public void Start()
   {
+    if (instance == null)
+      instance = this;
+    
     ManHoverImg.color = Color.clear;
     WomanHoverImg.color = Color.clear;
 
@@ -28,9 +34,47 @@ public class UICanvas : MonoBehaviourPunCallbacks
     
     ManButton.interactable = false;
     WomanButton.interactable = false;
+    
+    WomanCharacterImg.color = Color.gray;
+    ManCharacterImg.color = Color.gray;
+
   }
-  
-  
+
+  public void UpdateCharacterSelection(int[] characterStatus)
+  {
+    for (int i = 0; i < characterStatus.Length; i++)
+    {
+      if (i == 0)
+      {
+        var value = characterStatus[i];
+        if (value > 0)
+        {
+          ManButton.interactable = false;
+          ManCharacterImg.color = Color.gray;
+        }
+        else
+        {
+          ManButton.interactable = true;
+          ManCharacterImg.color = Color.white;
+        }
+      }
+      else if (i == 1)
+      {
+        var value = characterStatus[i];
+        if (value > 0)
+        {
+          WomanButton.interactable = false;
+          WomanCharacterImg.color = Color.gray;
+    
+        }
+        else
+        {
+          WomanButton.interactable = true;
+          WomanCharacterImg.color = Color.white;
+        }
+      }
+    }
+  }
 
 
   public void ManBtnHoverEvent(BaseEventData data)
@@ -45,8 +89,6 @@ public class UICanvas : MonoBehaviourPunCallbacks
 
   public void ManBtnClickEvent()
   {
-    Debug.Log("ManBtnClickEvent");
-    //NetworkManager.Instance.SetupUserInfo(UserAvatarType.MAN);
     SelectAvatarEvent?.Invoke(UserAvatarType.MAN);
     photonView.RPC("DisableManButton", RpcTarget.Others);
   }
@@ -63,7 +105,6 @@ public class UICanvas : MonoBehaviourPunCallbacks
   
   public void WomanBtnClickEvent()
   {
-    //NetworkManager.Instance.SetupUserInfo(UserAvatarType.WOMAN);
     SelectAvatarEvent?.Invoke(UserAvatarType.WOMAN);
     photonView.RPC("DisableWomanButton", RpcTarget.Others);
   }
@@ -72,6 +113,9 @@ public class UICanvas : MonoBehaviourPunCallbacks
   {
     ManButton.interactable = true;
     WomanButton.interactable = true;
+    
+    WomanCharacterImg.color = Color.white;
+    ManCharacterImg.color = Color.white;
   }
 
   [PunRPC]

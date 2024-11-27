@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using ExitGames.Client.Photon;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public enum UserAvatarType
 {
@@ -46,6 +49,10 @@ public class MGR : MonoBehaviourPun
 
     public Image FadePanel;
 
+    const string CharacterSelectionKey = "CharacterSelection";
+
+    public UserAvatarType myUserType;
+    
     private void Awake()
     {
         if (instance == null)
@@ -60,32 +67,38 @@ public class MGR : MonoBehaviourPun
         _networkManager.OnLeftLocalPlayer += OnLeftRoom;
         _networkManager.OnRoomJoined += OnJoinRoom;
         _networkManager.OnOtherPlayerEnterRoom += OnEnterOtherPlayer;
+
+      
     }
 
-    void OnJoinRoom()
+  
+    
+    void InitializeCharacterSelection()
     {
-        _UICanvas.EnableButton();
-    }
+        Hashtable roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
 
-    /*private void NetworkManagerOnPlayerEntered(Player newPlayer)
-    {
-        if (PhotonNetwork.IsMasterClient)
+        if (roomProperties.ContainsKey(CharacterSelectionKey))
         {
-            //Debug.Log(" PlayerEntered 나는 마스터 ^^ ");
-           // TraceBox.Log("나는 마스터 ^^ ");
+            int[] characterStatus = (int[])roomProperties["CharacterSelection"];
+            Debug.Log($"현재 캐릭터 상태: {string.Join(", ", characterStatus)}");
         }
         else
         {
-            //Debug.Log("PlayerEntered 난 마스터 아님^^ ");
-          //  TraceBox.Log("난 마스터 아님^^ ");
+            Debug.Log("캐릭터 선택 상태가 없습니다.");
+            roomProperties[CharacterSelectionKey] = new int[] { 0, 0 };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+            
         }
+    }
 
-        //TraceBox.Log("다른 플레이어 입장 " + newPlayer.NickName);
-        //Debug.Log("PlayerEntered 다른 플레이어 입장  " + newPlayer.NickName);
-        
-        
-    }*/
-
+   
+    
+    void OnJoinRoom()
+    {
+        _UICanvas.EnableButton();
+        InitializeCharacterSelection();
+    }
+    
     public void OnEnterOtherPlayer(Player player)
     {
         Debug.Log("OnEnterOtherPlayer");
@@ -96,17 +109,41 @@ public class MGR : MonoBehaviourPun
     public void OnLeftRoom()
     {
        // 로컬 플레이어 아웃 
+       
+       int characterId = (int)myUserType;
+       int[] characterStatus = (int[])PhotonNetwork.CurrentRoom.CustomProperties[CharacterSelectionKey];
+        
+       Hashtable updatedProperties = new Hashtable();
+       characterStatus[characterId] = 0;
+       updatedProperties[CharacterSelectionKey] = characterStatus;
+       PhotonNetwork.CurrentRoom.SetCustomProperties(updatedProperties);
+       
     }
     
     public void OnPlayerLeftRoom(Player otherPlayer)
     {
         // 다른 유저 아웃 
     }
+    
 
+    void UpdateCharacterSelectionkey(UserAvatarType type)
+    {
+        int characterId = (int)type;
+        int[] characterStatus = (int[])PhotonNetwork.CurrentRoom.CustomProperties[CharacterSelectionKey];
+        
+        Hashtable updatedProperties = new Hashtable();
+        characterStatus[characterId] = PhotonNetwork.LocalPlayer.ActorNumber;
+        updatedProperties[CharacterSelectionKey] = characterStatus;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(updatedProperties);
+    }
+    
     public List<GameObject> networkObjects = new List<GameObject>();
     
     private void OnSelectAvatar(UserAvatarType type)
     {
+        myUserType = type;
+        UpdateCharacterSelectionkey(type);
+        
         _UICanvas.gameObject.SetActive(false);
         FadePanel.DOFade(1, 0.5f);
         FadePanel.DOFade(0, 1f).SetDelay(2f);
@@ -144,25 +181,7 @@ public class MGR : MonoBehaviourPun
         LeftControllerVisual.SetActive(false);
         RightControllerVisual.SetActive(false);
         
-        /*if (photonView.IsMine)
-        {
-        }
-        else
-        {
-            rig.hmd = HMD;
-            rig.leftHandController = LeftController;
-            rig.rightHandController = RightController;
-
-            LeftControllerInteractor.SetActive(false);
-            RightControllerInteractor.SetActive(false);
-            LeftControllerVisual.SetActive(false);
-            RightControllerVisual.SetActive(false);
-
-            Debug.Log("MGR SEt photonView.IsMine false ");
-            rig.PlayerHead = HMD.gameObject;
-        }*/
-
- 
+        
         UpdateHeadChecker();
         if (PhotonNetwork.IsMasterClient)
         {
@@ -182,20 +201,7 @@ public class MGR : MonoBehaviourPun
 
     public void UpdateHeadChecker()
     {
-        /*foreach (GameObject go in networkObjects)
-        {
-            if (go != null)
-            {
-
-                PhotonView pv = go.GetComponent<PhotonView>();
-                if (pv != null && pv.IsMine == false)
-                {
-                    Debug.Log("UpdateHeadChecker  " + go.name);
-                    go.GetComponentInChildren<RiggingManager>().PlayerHead = HMD.gameObject;
-                }
-
-            }
-        }*/
+      
         Debug.Log("UpdateHeadChecker11111111111111");
         GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("User");
         Debug.Log("find length " + objectsWithTag.Length);

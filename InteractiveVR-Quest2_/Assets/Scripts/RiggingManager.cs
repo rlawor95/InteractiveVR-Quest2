@@ -73,14 +73,17 @@ public class RiggingManager : MonoBehaviourPun, IPunObservable
             
             leftVFXGraph.SetVector3("SensingPosition", leftHandIK.position);
             rightVFXGraph.SetVector3("SensingPosition", rightHandIK.position);
-            
-            var dir = PlayerHeadChecker.transform.position - PlayerHead.transform.position;
-            var dot = Vector3.Dot(dir.normalized, PlayerHead.transform.forward);
-            Debug.Log(gameObject.name + "  :  " + dot);
-            if (dot > threshold)
-                OffVFX();
-            else
-                OnVFX();
+            if (PlayerHead != null)
+            {
+                var dir = PlayerHeadChecker.transform.position - PlayerHead.transform.position;
+
+                var dot = Vector3.Dot(dir.normalized, PlayerHead.transform.forward);
+                Debug.Log(gameObject.name + "  :  " + dot);
+                if (dot > threshold)
+                    OffVFX();
+                else
+                    OnVFX();
+            }
         }
     }
 

@@ -1,4 +1,5 @@
 using System;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Unity.VisualScripting;
@@ -38,6 +39,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
     }
 
+  
     public override void OnLeftRoom()
     {
         Debug.Log("Local player has left the room.");
@@ -105,6 +107,30 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.LogError("Player Name is invalid.");
         }
     }
+    
+    public override void OnRoomPropertiesUpdate(Hashtable updatedProperties)
+    {
+        if (updatedProperties.ContainsKey("CharacterSelection"))
+        {
+            int[] characterStatus = (int[])updatedProperties["CharacterSelection"];
+            Debug.Log($"업데이트된 캐릭터 상태: {string.Join(", ", characterStatus)}");
+            // 업데이트된 캐릭터 상태에 따른 로직 추가
+           // UpdateCharacterUI(characterStatus);
+           UICanvas.instance.UpdateCharacterSelection(characterStatus);
+        }
+    }
+    
+    /*
+    private void UpdateCharacterUI(int[] characterStatus)
+    {
+        // 캐릭터 상태에 따라 UI 업데이트 로직 작성
+        for (int i = 0; i < characterStatus.Length; i++)
+        {
+            Debug.Log($"캐릭터 {i} 상태: {(characterStatus[i] == 0 ? "선택 가능" : "선택됨")}");
+        }
+    }
+    */
+    
 
     /*void CreatePhotonRoom()
     {
