@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Drawing;
@@ -24,13 +25,12 @@ public class WalkingCharacter : MonoBehaviourPun
     
     public TCPClient _TcpClient00;
     public TCPClient _TcpClient01;
-    
+
+   
     
     private void Start()
     {
        // if (photonView.IsMine)
-            StartCoroutine(MoveBetweenPoints());
-            StartCoroutine(CallTCP());
     }
 
     float GetCurPosNormalized()
@@ -43,6 +43,12 @@ public class WalkingCharacter : MonoBehaviourPun
         //Debug.Log("GetCurPosNormalized : " + result);
         return result;
 
+    }
+
+    public void StartActing()
+    {
+        StartCoroutine(MoveBetweenPoints());
+        StartCoroutine(CallTCP());
     }
     
     IEnumerator CallTCP()

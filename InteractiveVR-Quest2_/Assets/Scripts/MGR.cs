@@ -52,6 +52,8 @@ public class MGR : MonoBehaviourPun
     const string CharacterSelectionKey = "CharacterSelection";
 
     public UserAvatarType myUserType;
+
+    public WalkingCharacter _WalkingCharacter; 
     
     private void Awake()
     {
@@ -197,6 +199,8 @@ public class MGR : MonoBehaviourPun
         {
             //Debug.Log("난 마스터 아님^^ ");
         }
+        
+        _WalkingCharacter.StartActing();
     }
 
     public void UpdateHeadChecker()

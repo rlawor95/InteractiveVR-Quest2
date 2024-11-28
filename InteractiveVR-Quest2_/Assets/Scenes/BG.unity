@@ -6420,6 +6420,7 @@ MonoBehaviour:
   RightControllerInteractor: {fileID: 1571438547}
   FadePanel: {fileID: 938456501}
   myUserType: 0
+  _WalkingCharacter: {fileID: 934458012}
   networkObjects: []
 --- !u!4 &696986762
 Transform:
