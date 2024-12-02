@@ -23,8 +23,8 @@ public class WalkingCharacter : MonoBehaviourPun
 
     private Vector3 targetPoint;
     
-    public TCPClient _TcpClient00;
-    public TCPClient _TcpClient01;
+    public TCPClient _TcpClient;
+    //public TCPClient _TcpClient01;
 
    
     
@@ -56,10 +56,10 @@ public class WalkingCharacter : MonoBehaviourPun
         while (true)
         {
             float value = GetCurPosNormalized();
-            _TcpClient00.SetSendData(value,value);
-            _TcpClient01.SetSendData(value, value);
+            _TcpClient.SetSendData(value,value);
+            //_TcpClient01.SetSendData(value, value);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
         
     }

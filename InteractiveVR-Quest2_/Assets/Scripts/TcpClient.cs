@@ -24,14 +24,14 @@ public class TCPClient : MonoBehaviour
         // ½½¶óÀÌ´õ °ªÀÌ º¯°æµÉ ¶§¸¶´Ù °ª ¾÷µ¥ÀÌÆ®
         //motor1Slider.onValueChanged.AddListener((value) => motor1Value = ConvertSliderToByte(value));
         //motor2Slider.onValueChanged.AddListener((value) => motor2Value = ConvertSliderToByte(value));
-#if !UNITY_EDITOR
+//#if !UNITY_EDITOR
         ConnectToESP32();
-#endif
+//#endif
     }
 
     void Update()
     {
-#if !UNITY_EDITOR
+//#if !UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SetSendData(0.0f, 0.0f);
@@ -52,7 +52,7 @@ public class TCPClient : MonoBehaviour
             SendMotorData(length1Value, length2Value);
             lastSendTime = Time.time; // ¸¶Áö¸· ½ÅÈ£ Àü¼Û ½Ã°£ °»½Å
         }
-#endif
+//#endif
     }
 
 
@@ -140,8 +140,11 @@ public class TCPClient : MonoBehaviour
             data[3] = 0x03;        // ³¡ ¹ÙÀÌÆ®
 
             // µ¥ÀÌÅÍ Àü¼Û
-            stream.Write(data, 0, data.Length);
-            Debug.Log($"Sent data to ESP32: {BitConverter.ToString(data)}");
+            using (var stream = client.GetStream())
+            {
+                stream.Write(data, 0, data.Length);
+                Debug.Log($"Sent data to ESP32: {BitConverter.ToString(data)}");
+            }
         }
         catch (Exception e)
         {

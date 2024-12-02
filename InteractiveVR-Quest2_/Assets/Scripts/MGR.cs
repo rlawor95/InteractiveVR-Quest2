@@ -7,6 +7,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using ExitGames.Client.Photon;
+using ExitGames.Client.Photon.StructWrapping;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public enum UserAvatarType
@@ -53,8 +54,11 @@ public class MGR : MonoBehaviourPun
 
     public UserAvatarType myUserType;
 
-    public WalkingCharacter _WalkingCharacter; 
-    
+    public WalkingCharacter _WalkingCharacter;
+
+    public GameObject _TraceBox; 
+
+        
     private void Awake()
     {
         if (instance == null)
@@ -70,9 +74,14 @@ public class MGR : MonoBehaviourPun
         _networkManager.OnRoomJoined += OnJoinRoom;
         _networkManager.OnOtherPlayerEnterRoom += OnEnterOtherPlayer;
 
-      
+        StartCoroutine(OpenTracebox());
     }
 
+    IEnumerator OpenTracebox()
+    {
+        yield return new WaitForSeconds(2f);
+        _TraceBox.GetComponent<CanvasGroup>().alpha = 1;
+    }
   
     
     void InitializeCharacterSelection()
